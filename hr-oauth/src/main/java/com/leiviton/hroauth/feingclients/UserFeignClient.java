@@ -1,4 +1,4 @@
-package com.leiviton.hroauth;
+package com.leiviton.hroauth.feingclients;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
