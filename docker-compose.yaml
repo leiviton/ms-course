@@ -1,0 +1,39 @@
+version: '3'
+services:
+    hr-api-gateway-zuul:
+        build: ./hr-api-gateway-zuul
+        container_name: api-gateway-zuul
+        ports:
+            - "8765:8765"
+        volumes:
+            - .:/temp
+        networks:
+            - hr-network
+
+    hr-worker-pg12:
+        image: postgree:12.0
+        container_name: hr-worker-pg12
+        restart: always
+        tty: true
+        ports:
+            - "5432"
+        environment:
+            - POSTGRES_PASSWORD=1234567
+            - POSTGRES_DB=db_hr_worker
+        networks:
+            - hr-network
+    hr-user-pg12:
+        image: postgree:12.0
+        container_name: hr-user-pg12
+        restart: always
+        tty: true
+        ports:
+            - "5432"
+        environment:
+            - POSTGRES_PASSWORD=1234567
+            - POSTGRES_DB=db_hr_user
+        networks:
+            - hr-network
+networks:
+    hr-network:
+        driver: bridge
